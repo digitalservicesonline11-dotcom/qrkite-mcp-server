@@ -1,0 +1,11 @@
+{
+  "name": "qrkite",
+  "version": "1.0.0",
+  "description": "Generate QR codes (links, WiFi, menus, contacts and more) with QRkite",
+  "contextFileName": "GEMINI.md",
+  "mcpServers": {
+    "qrkite": {
+      "httpUrl": "https://mcp.qrkite.online/mcp"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+openapi: 3.1.0
+info:
+  title: QRkite QR Code API
+  description: Generate QR codes (links, text, WiFi, contacts and more) powered by QRkite (https://qrkite.online).
+  version: 1.0.0
+servers:
+  - url: __SERVER_URL__
+paths:
+  /api/qr:
+    get:
+      operationId: createQrCode
+      summary: Create a QR code and return links to the image
+      description: >
+        Encodes `content` as a QR code. For a WiFi code pass
+        WIFI:T:WPA;S:<ssid>;P:<password>;; as content. For a contact use a vCard text. Returns image URLs.
+      parameters:
+        - name: content
+          in: query
+          required: true
+          description: The exact text or URL to encode (max 2000 characters).
+          schema: { type: string, maxLength: 2000 }
+        - name: size
+          in: query
+          description: Image width in pixels.
+          schema: { type: integer, minimum: 128, maximum: 2048, default: 512 }
+        - name: margin
+          in: query
+          description: Quiet zone in modules.
+          schema: { type: integer, minimum: 0, maximum: 10, default: 4 }
+        - name: ec
+          in: query
+          description: Error correction level (use H when adding a logo).
+          schema: { type: string, enum: [L, M, Q, H], default: M }
+        - name: dark
+          in: query
+          description: Foreground hex color, e.g. #000000.
+          schema: { type: string, default: "#000000" }
+        - name: light
+          in: query
+          description: Background hex color, e.g. #ffffff.
+          schema: { type: string, default: "#ffffff" }
+      responses:
+        "200":
+          description: QR code created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  imageUrl: { type: string, description: PNG image URL }
+                  svgUrl: { type: string, description: SVG image URL }
+                  markdown: { type: string, description: Markdown that displays the PNG }
+                  studio: { type: string, description: QRkite website for advanced designs }
+        "400":
+          description: Invalid input
+        "429":
+          description: Rate limited
