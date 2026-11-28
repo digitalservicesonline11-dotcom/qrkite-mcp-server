@@ -71,7 +71,7 @@ export function registerTools(server: McpServer): void {
       description:
         "Create a QR code for a URL or any plain text. Returns the image. Use for links, text, or any custom payload.",
       inputSchema: { content: z.string().min(1).max(2000).describe("URL or text to encode"), ...styleShape },
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async ({ content, ...style }) => {
       try { return await respond("QR code", content, styleSchema.parse(style)); } catch (e) { return fail(e); }
@@ -90,7 +90,7 @@ export function registerTools(server: McpServer): void {
         hidden: z.boolean().default(false).describe("True if the network does not broadcast its name"),
         ...styleShape,
       },
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async ({ ssid, password, security, hidden, ...style }) => {
       try {
@@ -106,7 +106,7 @@ export function registerTools(server: McpServer): void {
       title: "Generate restaurant menu QR code",
       description: "Create a QR code that opens a restaurant's online menu (contactless table tents, flyers, window stickers).",
       inputSchema: { menuUrl: z.string().url().describe("Full https:// link to the menu"), ...styleShape },
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async ({ menuUrl, ...style }) => {
       try { return await respond("Menu QR", menuUrl, styleSchema.parse(style)); } catch (e) { return fail(e); }
@@ -129,7 +129,7 @@ export function registerTools(server: McpServer): void {
         address: z.string().optional(),
         ...styleShape,
       },
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async ({ firstName, lastName, organization, title, phone, email, website, address, ...style }) => {
       try {
@@ -148,7 +148,7 @@ export function registerTools(server: McpServer): void {
       inputSchema: {
         to: z.string().email(), subject: z.string().optional(), body: z.string().optional(), ...styleShape,
       },
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async ({ to, subject, body, ...style }) => {
       try { return await respond("Email QR", emailPayload({ to, subject, body }), styleSchema.parse(style)); }
@@ -165,7 +165,7 @@ export function registerTools(server: McpServer): void {
         phone: z.string().min(3).describe("Phone number, ideally with country code"),
         message: z.string().max(500).optional(), ...styleShape,
       },
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async ({ phone, message, ...style }) => {
       try { return await respond("SMS QR", smsPayload({ phone, message }), styleSchema.parse(style)); }
@@ -181,7 +181,7 @@ export function registerTools(server: McpServer): void {
       inputSchema: {
         latitude: z.number().min(-90).max(90), longitude: z.number().min(-180).max(180), ...styleShape,
       },
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async ({ latitude, longitude, ...style }) => {
       try { return await respond("Location QR", geoPayload({ latitude, longitude }), styleSchema.parse(style)); }
@@ -195,7 +195,7 @@ export function registerTools(server: McpServer): void {
       title: "Open QRkite studio",
       description: "Return the QRkite website link for advanced design: logos, custom styles, print cards, and the QR blog.",
       inputSchema: {},
-      annotations: { readOnlyHint: true, openWorldHint: false },
+      annotations: { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
     },
     async () => ({
       content: [{ type: "text" as const, text: `QRkite free QR studio: ${SITE}` }],
