@@ -1,8 +1,10 @@
 # QRkite Connector for Claude, ChatGPT and Gemini
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/digitalservicesonline11-dotcom-qrkite-mcp-server-2e4sf9?v=3f3f855d662a5a49c71cefdaf25a1382)](https://m8ven.ai/mcp/digitalservicesonline11-dotcom-qrkite-mcp-server-2e4sf9?s=readme)
+
 An [MCP](https://modelcontextprotocol.io) server that lets **Claude**, **ChatGPT** and **Gemini** users generate QR codes through **QRkite** ([qrkite.online](https://qrkite.online)). Once connected, a user can simply ask: *"Make a WiFi QR code for my cafe"* and get the image back in the chat.
 
-Two ways to use it with ChatGPT are included: a **custom MCP app** (Developer mode) and a **Custom GPT with Actions** (REST + OpenAPI).
+Two ways to use it with ChatGPT are included: a **custom MCP app** (Developer mode) and a **Custom GPT with Actions
 
 ## What it does
 
